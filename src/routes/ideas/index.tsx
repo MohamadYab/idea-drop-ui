@@ -9,8 +9,12 @@ export const Route = createFileRoute('/ideas/')({
     ]
   }),
   component: IdeasPage,
+  loader: async () => {
+    return "Mohamad";
+  }
 })
 
 function IdeasPage() {
-  return <div>Hello "/ideas/"!</div>
+  const name = Route.useLoaderData();
+  return <div>Hello {name}!</div>
 }
