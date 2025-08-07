@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { fetchIdeas } from '@/api/ideas';
+import { queryOptions, useSuspenseQuery, useMutation } from '@tanstack/react-query';
+import { fetchIdeas, deleteIdea } from '@/api/ideas';
 
 const ideasQueryOptions = () => queryOptions({
   queryKey: ['ideas'],
@@ -23,6 +23,10 @@ export const Route = createFileRoute('/ideas/')({
 
 function IdeasPage() {
   const { data: ideas } = useSuspenseQuery(ideasQueryOptions());
+  const {mutateAsync: deleteMutate} = useMutation({
+    mutationFn: (ideaId: string) => deleteIdea(ideaId),
+  });
+
   return (
     <div className='p-4'>
       <h1 className="text-2xl font-bold mb-4">Ideas</h1>
@@ -33,7 +37,15 @@ function IdeasPage() {
             className="border border-gray-300 p-4 rounded shadow bg-white flex flex-col justify-between"
           >
             <div>
-              <h2 className="text-lg font-semibold">{idea.title}</h2>
+              <div className="flex justify-between">
+                <h2 className="text-lg font-semibold">{idea.title}</h2>
+                <button
+                  className='cursor-pointer text-white bg-red-500 px-2 rounded hover:bg-red-600 transition'
+                  onClick={() => deleteMutate(idea.id)}
+                >
+                  X
+                </button>
+              </div>
               <p className="text-gray-700 mt-2">{idea.summary}</p>
             </div>
 
