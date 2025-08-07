@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
-  component: App,
+  component: HomePage,
 })
 
-function App() {
+function HomePage() {
   return (
-    <div className="text-center">
-      My App
+    <div>
+      This project is part of a "Modern React" course by Brad Traversy - 2025
     </div>
   )
 }
