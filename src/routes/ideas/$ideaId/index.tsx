@@ -3,13 +3,7 @@ import {
   queryOptions,
   useSuspenseQuery
 } from '@tanstack/react-query';
-import type { Idea } from '@/types';
-import api from '@/lib/axios';
-
-const fetchIdea = async (ideaId: string): Promise<Idea> => {
-  const response = await api.get(`/ideas/${ideaId}`);
-    return response.data;
-}
+import { fetchIdea } from '@/api/ideas';
 
 /**
  * Define query configs as a stand-alone, type-safe and reusable helper function
